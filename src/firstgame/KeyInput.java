@@ -9,8 +9,12 @@ public class KeyInput extends KeyAdapter {
     private Handler handler;
     private boolean[] keyDown = new boolean[4];
     
-    public KeyInput(Handler handler){
+    FirstGame game;
+    
+    public KeyInput(Handler handler, FirstGame game){
         this.handler = handler;
+        
+        this.game = game;
         
         keyDown[0] = false;
         keyDown[1] = false;
@@ -33,6 +37,12 @@ public class KeyInput extends KeyAdapter {
             }
         }
         
+        if(key == KeyEvent.VK_ENTER){
+            if(game.gameState == FirstGame.STATE.Game){
+               if(FirstGame.paused) FirstGame.paused = false;
+               else FirstGame.paused = true;
+        }
+        }
         if(key == KeyEvent.VK_ESCAPE) System.exit(1);
     }
     

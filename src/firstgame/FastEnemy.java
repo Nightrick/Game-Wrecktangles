@@ -28,7 +28,7 @@ public class FastEnemy extends GameObject{
         y += velY;
         
         if(y <= 0 || y >= FirstGame.HEIGHT - 48) velY *= -1;
-        if(x <= 0 || x >= FirstGame.WIDTH - 16) velX *= -1;
+        if(x <= 0 || x >= FirstGame.WIDTH - 24) velX *= -1;
         
         handler.addObject(new Trail(x, y, ID.Trail, Color.magenta, 16, 16, 0.09f, handler));
     }

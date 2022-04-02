@@ -18,6 +18,12 @@ public class FirstGame extends Canvas implements Runnable{
     private Thread thread;
     private boolean running = false;
     
+    public static boolean paused = false;
+    public int diff;
+    //If diff = 0, this triggers a cannot find symbol error in Menu? 
+    
+    //for int diff, 0 = normal, 1 = hard
+    
     private Random r; 
     private Handler handler;
     private HUD hud;
@@ -27,6 +33,7 @@ public class FirstGame extends Canvas implements Runnable{
     public enum STATE {
       Menu,
       Help,
+      Select,
       Game,
       End,
     };
@@ -39,7 +46,7 @@ public class FirstGame extends Canvas implements Runnable{
         handler = new Handler();
         hud = new HUD();
         menu = new Menu(this, handler, hud);
-        this.addKeyListener(new KeyInput(handler));
+        this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(menu);
         
         new Window(WIDTH, HEIGHT, "David's First Game!", this);
@@ -106,11 +113,14 @@ public class FirstGame extends Canvas implements Runnable{
     }
     
     private void tick(){
-        handler.tick();
+        
         
         if(gameState == STATE.Game){
+            if(!paused){
+             
         hud.tick();
         spawner.tick();
+        handler.tick();
         
         if(HUD.HEALTH <= 0){
             HUD.HEALTH = 100;
@@ -120,9 +130,12 @@ public class FirstGame extends Canvas implements Runnable{
                 handler.addObject(new MenuParticle(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.MenuParticle, handler));
             }
         }
+        }
+            
         
-    }else if(gameState == STATE.Menu || gameState == STATE.End){
+    }else if(gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Help || gameState == STATE.Select){
         menu.tick();
+        handler.tick();
     }
     } 
     
@@ -144,9 +157,14 @@ public class FirstGame extends Canvas implements Runnable{
         
         handler.render(g);
         
+        if(paused){
+            g.setColor(Color.white);
+            g.drawString("PAUSED", 290, 220);
+        }
+        
         if(gameState == STATE.Game){        
         hud.render(g);
-        }else if(gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End){
+        }else if(gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Select){
         menu.render(g);
         }
         
