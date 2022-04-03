@@ -76,7 +76,7 @@ public class Menu extends MouseAdapter {
         game.diff = 1;
         
         for(int i = 0; i < 1; i++)
-        handler.addObject(new BasicEnemy(r.nextInt(FirstGame.WIDTH), r.nextInt(FirstGame.HEIGHT), ID.BasicEnemy, handler)); 
+        handler.addObject(new HardEnemy(r.nextInt(FirstGame.WIDTH), r.nextInt(FirstGame.HEIGHT), ID.BasicEnemy, handler)); 
         }
         }
         

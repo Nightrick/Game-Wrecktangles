@@ -52,7 +52,7 @@ public class FirstGame extends Canvas implements Runnable{
         new Window(WIDTH, HEIGHT, "David's First Game!", this);
         
         
-        spawner = new Spawn(handler, hud);
+        spawner = new Spawn(handler, hud, this);
         r = new Random();
         
         if(gameState == STATE.Game){       
